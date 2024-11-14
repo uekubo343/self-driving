@@ -65,7 +65,6 @@ public abstract class Agent : MonoBehaviour
         IsBackingUp = false;
     }
 
-
     public void Reset()
     {
         Stop();
