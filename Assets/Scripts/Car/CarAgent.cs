@@ -290,7 +290,7 @@ public class CarAgent : Agent
                 return;
             }
         }
-                
+
         WaypointIndex = waypoint.Index;
         if(waypoint.IsLast) {
             WaypointIndex = 0;
