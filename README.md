@@ -146,7 +146,7 @@ Sensors_1/2/3_Playerに関しても同様にします。
         var observation = a.CollectObservations();
         var rearranged = RearrangeObservation(observation, new List<int>(){0, 1, 2, 3, 4, 40, 42});
         var action = b.GetAction(rearranged);
-        a.AgentAction(action);
+        a.AgentAction(action, false);
     }
 
     // BattleBrain.cs にあるのをコピペ

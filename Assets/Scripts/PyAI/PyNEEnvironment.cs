@@ -219,7 +219,7 @@ public class PyNEEnvironment : Environment
                 p => { 
                     if (!p.agent.IsDone) {
                         if (actions[p.brainID] != null) {
-                            p.agent.AgentAction(actions[p.brainID]);
+                            p.agent.AgentAction(actions[p.brainID], false);
                         }
                     }
                 });

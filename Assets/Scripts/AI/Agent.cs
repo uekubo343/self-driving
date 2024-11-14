@@ -6,8 +6,17 @@ public abstract class Agent : MonoBehaviour
 {
     public bool IsDone { get; private set; }
     public bool IsFrozen { get; private set; }
+    public bool IsBackingUp { get; private set; }
+    public float BackUpTimer { get; private set; }
 
     public float Reward { get; private set; }
+
+    [SerializeField] private float reverseDuration = 6.0f;
+    private float ReverseDuration => reverseDuration;
+    [SerializeField] private float reverseGasDuration = 4.0f;
+    private float ReverseGasDuration => reverseGasDuration; 
+    [SerializeField] private float reverseBrakeDuration = 2.0f;
+    private float ReverseBrakeDuration => reverseBrakeDuration;
 
     public void SetReward(float reward) {
         Reward = reward;
@@ -19,7 +28,7 @@ public abstract class Agent : MonoBehaviour
 
     public abstract int GetState();
 
-    public abstract void AgentAction(double[] vectorAction);
+    public abstract void AgentAction(double[] vectorAction, bool inReverse);
     public abstract float GetDistance();
 
     public abstract void AgentReset();
@@ -32,6 +41,30 @@ public abstract class Agent : MonoBehaviour
     {
         IsDone = true;
     }
+
+    public void StartBackingUp() {
+        BackUpTimer = 0;
+        IsBackingUp = true;
+    }
+
+    public double[] UpdateBackupTimerAndGetAction(float delta) {
+        BackUpTimer += delta;
+        if (BackUpTimer > ReverseDuration) {
+            StopBackingUp();
+        }
+        if (BackUpTimer < ReverseGasDuration) {
+            return new double[] {0.0f, -0.5f, 0.0f};
+        } else if (BackUpTimer > ReverseDuration - ReverseBrakeDuration) {
+            return new double[] {0.0f, 0.0f, 1.0f};
+        } else {
+            return new double[] {0.0f, 0.0f, 0.0f};
+        }
+    }
+
+    public void StopBackingUp() {
+        IsBackingUp = false;
+    }
+
 
     public void Reset()
     {

@@ -23,6 +23,9 @@ public class CarAgent : Agent
     [SerializeField] private bool isLearning = true;
     private bool IsLearning => isLearning;
 
+    [SerializeField] private bool backUpOnCollision = false;
+    private bool BackUpOnCollision => backUpOnCollision;
+
     private Sensor[] Sensors { get; set; }
     private CarController Controller { get; set; }
     private Rigidbody CarRb { get; set; }
@@ -215,7 +218,7 @@ public class CarAgent : Agent
         return action;
     }
 
-    public override void AgentAction(double[] vectorAction) {
+    public override void AgentAction(double[] vectorAction, bool inReverse) {
         CurrentStep++;
         LocalStep++;
         TotalDistance += (transform.position - LastPosition).magnitude;
@@ -233,7 +236,12 @@ public class CarAgent : Agent
         }
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);
-        var gasInput = Mathf.Clamp((float)vectorAction[1], 0.0f, 1.0f);
+        float gasInput = 0.0f;
+        if (!inReverse) {
+            gasInput = Mathf.Clamp((float)vectorAction[1], 0.0f, 1.0f);
+        } else {
+            gasInput = Mathf.Clamp((float)vectorAction[1], -0.3f, 0.0f);
+        }
         var braking = Mathf.Clamp((float)vectorAction[2], 0.0f, 1.0f);
 
         Controller.SteerInput = steering;
@@ -259,7 +267,11 @@ public class CarAgent : Agent
     /// <param name="collision"></param>
     public void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.tag == "wall") {
-            DoneWithReward(-1.0f / TotalDistance);
+            if (BackUpOnCollision) {
+                StartBackingUp();
+            } else {
+                DoneWithReward(-1.0f / TotalDistance);
+            }
         }
     }
 
@@ -270,13 +282,15 @@ public class CarAgent : Agent
         }
 
         //逆走した時
-        bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
-        bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
-        if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
-            DoneWithReward(-1.0f / TotalDistance);
-            return;
+        if (!BackUpOnCollision) {
+            bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
+            bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
+            if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
+                DoneWithReward(-1.0f / TotalDistance);
+                return;
+            }
         }
-        
+                
         WaypointIndex = waypoint.Index;
         if(waypoint.IsLast) {
             WaypointIndex = 0;

@@ -207,7 +207,7 @@ Sensors_1/2/3_Playerに関しても同様にします。
         <span class="hljs-keyword">var</span> observation = a.CollectObservations();
         <span class="hljs-keyword">var</span> rearranged = RearrangeObservation(observation, <span class="hljs-keyword">new</span> List&lt;<span class="hljs-built_in">int</span>&gt;(){<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">40</span>, <span class="hljs-number">42</span>});
         <span class="hljs-keyword">var</span> action = b.GetAction(rearranged);
-        a.AgentAction(action);
+        a.AgentAction(action, false);
     }
 
     <span class="hljs-comment">// BattleBrain.cs にあるのをコピペ</span>

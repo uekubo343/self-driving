@@ -65,7 +65,7 @@ public class QEnvironment : Environment
         // 現在の状態からとる行動を決定する．
         int actionNo = b.GetAction(currentState);
         double[] action = a.ActionNumberToVectorAction(actionNo);
-        a.AgentAction(action);
+        a.AgentAction(action, false);
 
         // 状態と行動を記録する．
         PrevState = currentState;
