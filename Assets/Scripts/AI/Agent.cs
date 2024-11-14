@@ -53,7 +53,7 @@ public abstract class Agent : MonoBehaviour
             StopBackingUp();
         }
         if (BackUpTimer < ReverseGasDuration) {
-            return new double[] {0.0f, -0.5f, 0.0f};
+            return new double[] {0.0f, -0.3f, 0.0f};
         } else if (BackUpTimer > ReverseDuration - ReverseBrakeDuration) {
             return new double[] {0.0f, 0.0f, 1.0f};
         } else {
