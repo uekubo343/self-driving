@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: NNStage1BB
   m_EditorClassIdentifier: 
   Name: NN Brain
-  brainData: {fileID: 4900000, guid: ec677e1eae15248df8d3b2955586ca27, type: 3}
-  distinguishCar: 0
+  ObservationConfig: []
+  brainData: {fileID: 4900000, guid: 72b3222ab2a2e4f45a9b8e1b130ff89a, type: 3}
+  usesAllObservations: 0

@@ -178,7 +178,7 @@ public class PyNEEnvironment : Environment
         AgentsSet.ForEach(
                 p => { 
                     if (!p.agent.IsDone) {
-                        var observation = p.agent.CollectObservations();
+                        var observation = p.agent.GetAllObservations();
                         ActionInfo += "," + p.brainID.ToString();
                         for (int i = 0; i < observation.Count; i++) {
                             ActionInfo += "," + observation[i].ToString();
