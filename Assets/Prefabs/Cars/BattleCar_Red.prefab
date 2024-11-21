@@ -212,8 +212,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7648801937227814935, guid: 48764237b4fd4444482ea11373f92b16,
         type: 3}
+      propertyPath: isBattle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648801937227814935, guid: 48764237b4fd4444482ea11373f92b16,
+        type: 3}
       propertyPath: agentIndex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7648801937227814935, guid: 48764237b4fd4444482ea11373f92b16,
+        type: 3}
+      propertyPath: isLearning
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7648801938087533368, guid: 48764237b4fd4444482ea11373f92b16,
         type: 3}

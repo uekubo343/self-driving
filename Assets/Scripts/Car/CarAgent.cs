@@ -146,14 +146,28 @@ public class CarAgent : Agent
         Array.ForEach(Sensors, sensor => {
             results.AddRange(sensor.Hits());
         });
-        for(int i = 0; i < results.Count; i++) {
-            var v = Mathf.FloorToInt(Mathf.Lerp(0, stateDivide - 1, (float)results[i]));
-            if(results[i] >= 0.99f) {
+
+        // Sensors to use (up to 7).
+        int[] indices = { 0, 1, 2, 3, 4, 40, 42 };
+
+        List<double> filteredResult = new List<double>();
+
+        foreach (int index in indices)
+        {
+            if (index >= 0 && index < results.Count)
+            {
+                filteredResult.Add(results[index]);
+            }
+        }
+
+        for(int i = 0; i < filteredResult.Count; i++) {
+            var v = Mathf.FloorToInt(Mathf.Lerp(0, stateDivide - 1, (float)filteredResult[i]));
+            if(filteredResult[i] >= 0.99f) {
                 v = stateDivide - 1;
             }
             r += (int)(v * Mathf.Pow(stateDivide, i));
         }
-        var numStates = (int)Mathf.Pow(stateDivide, results.Count);
+        var numStates = (int)Mathf.Pow(stateDivide, filteredResult.Count);
         int n;
         if(CarRb.velocity.magnitude < 10) { n = 0; }
         else if(CarRb.velocity.magnitude < 15) { n = 1; }

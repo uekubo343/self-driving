@@ -113,7 +113,7 @@ public class NEEnvironment_stage4 : Environment
     }
 
     private void AgentUpdate(Agent a, NNBrain b) {
-        var observation = a.CollectObservations();
+        var observation = a.GetAllObservations();
         var action = b.GetAction(observation);
         a.AgentAction(action, false);
     }
