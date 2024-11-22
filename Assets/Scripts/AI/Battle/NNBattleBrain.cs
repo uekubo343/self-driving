@@ -7,7 +7,6 @@ using UnityEngine;
 public class NNBattleBrain : BattleBrain
 {
     [SerializeField] private TextAsset brainData = null;
-    [SerializeField] public bool[] selectedSensors = new bool[46];
 
     private NNBrain brain;
 
@@ -28,18 +27,17 @@ public class NNBattleBrain : BattleBrain
         return brain.GetAction(ProcessObservation(observation));
     }
 
-    // YourNameBattleBrain.csにオーバーライドされる.
     protected virtual List<double> ProcessObservation(List<double> observation)
     {
-        return RearrangeObservation(observation, CreateSelectedSensorsList(selectedSensors));
+        return RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42});
     }
 
-    public List<int> CreateSelectedSensorsList(bool[] selectedSensors) {
-        List<int> selectedSensorsList = new List<int>();
-        for (int i = 0; i < selectedSensors.Length; i++)
+    public List<int> CreateSelectedInputsList(bool[] selectedInputs) {
+        List<int> selectedInputsList = new List<int>();
+        for (int i = 0; i < selectedInputs.Length; i++)
         {
-            if (selectedSensors[i]) selectedSensorsList.Add(i);
+            if (selectedInputs[i]) selectedInputsList.Add(i);
         }
-        return selectedSensorsList;
+        return selectedInputsList;
     }
 }

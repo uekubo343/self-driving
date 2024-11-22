@@ -302,7 +302,7 @@ Q学習を用いた対戦用のAIを実装したコードです。学習済み�
 となっています。
 ### センサー角度の設定の仕方
 センサーの角度は調整することができる。以下仕様。\
-`BattleBrain.Initialize()`の中などで`ObservationConfig`に長さ40の`List<double>`を設定する。
+`BattleBrain.Initialize()`の中などで`SensorAngleConfig`に長さ40の`List<double>`を設定する。
 `observation`のセンサーと同じ順番。
 長さが40に満たない場合，足りない部分はデフォルトのセンサー角度のまま。
 長さが40を超える分は無視される。デフォルトでは以下のような設定になっている。
@@ -314,7 +314,7 @@ Q学習を用いた対戦用のAIを実装したコードです。学習済み�
 ```
 public override void Initialize() {
   base.Initialize();
-  ObservationConfig = new List<double>(){
+  SensorAngleConfig = new List<double>(){
     0, 45, 90, 135, 180,
     90, 110, 130, 150, 170
   };
@@ -322,7 +322,7 @@ public override void Initialize() {
 ```
 自分が作成した`BattleBrain`のアセットのInspectorタブから変更することも可能．
 \
-![ObservaionConfig](Pictures/ObservationConfig.png)
+![ObservaionConfig](Pictures/SensorAngleConfig.png)
 
 ### 次のWaypointの方向に関する注意点
 次のWaypointの方向に関する情報は`Waypoints/Waypoint.cs`の`NextDirection`変数に保存されているが、これは既にWaypointが配置されているシーンでは，`Waypoint.NextDirection`は自動的には計算されない。手動で`Set Next Direction`を押して設定するか`Set`し直す必要がある．

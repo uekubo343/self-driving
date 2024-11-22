@@ -19,8 +19,7 @@ public class PyNEEnvironment : Environment
     [SerializeField] private int eliteSelection = 4;
     private int EliteSelection { get { return eliteSelection; } }
 
-    [SerializeField] private int inputSize = 7;
-    private int InputSize { get { return inputSize; } }
+    private List<int> SelectedInputsList { get; set; }
 
     [SerializeField] private int hiddenSize = 8;
     private int HiddenSize { get { return hiddenSize; } }
@@ -90,7 +89,6 @@ public class PyNEEnvironment : Environment
         GenerationClient.Set(IP, GenerationSrcPort, DstPort);
         LostClient.Set(IP, LostSrcPort, DstPort);
         string EnvInfo = "GenerateFirstPop," + TotalPopulation.ToString() + "," 
-                                        + InputSize.ToString() + ","
                                         + HiddenSize.ToString() + ","
                                         + HiddenLayers.ToString() + ","
                                         + OutputSize.ToString();
@@ -216,13 +214,13 @@ public class PyNEEnvironment : Environment
         }
         
         AgentsSet.ForEach(
-                p => { 
-                    if (!p.agent.IsDone) {
-                        if (actions[p.brainID] != null) {
-                            p.agent.AgentAction(actions[p.brainID], false);
-                        }
+            p => { 
+                if (!p.agent.IsDone) {
+                    if (actions[p.brainID] != null) {
+                        p.agent.AgentAction(actions[p.brainID], false);
                     }
-                });
+                }
+            });
     }
 
     private void SetNextAgents() {

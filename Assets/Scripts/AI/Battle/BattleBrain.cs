@@ -16,7 +16,12 @@ public abstract class BattleBrain : ScriptableObject
     /// <summary>
     /// 観測状態の設定．Start()でAgentExecutorに参照されてAgentに反映される
     /// </summary>
-    public List<double> ObservationConfig = new List<double>();
+    public List<double> SensorAngleConfig = new List<double>();
+    
+    /// <summary>
+    /// 使用するセンサーの設定.
+    /// </summary>
+    public bool[] selectedInputs = new bool[46];
 
     /// <summary>
     /// 初期化処理．Start()でAgentExecutorによって呼び出される．

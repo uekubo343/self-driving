@@ -371,7 +371,7 @@ Q学習を用いた対戦用のAIを実装したコードです。学習済み�
 <p>となっています。</p>
 <h3 id="センサー角度の設定の仕方">センサー角度の設定の仕方</h3>
 <p>センサーの角度は調整することができる。以下仕様。<br>
-<code>BattleBrain.Initialize()</code>の中などで<code>ObservationConfig</code>に長さ40の<code>List&lt;double&gt;</code>を設定する。
+<code>BattleBrain.Initialize()</code>の中などで<code>SensorAngleConfig</code>に長さ40の<code>List&lt;double&gt;</code>を設定する。
 <code>observation</code>のセンサーと同じ順番。
 長さが40に満たない場合，足りない部分はデフォルトのセンサー角度のまま。
 長さが40を超える分は無視される。デフォルトでは以下のような設定になっている。</p>
@@ -380,7 +380,7 @@ Q学習を用いた対戦用のAIを実装したコードです。学習済み�
 <p>以下のような<code>Initialize</code>関数を書くことで，前方の対壁センサーの角度を<code>[0，45, 90, 135, 180]</code>度に，右方の対壁センサーの角度を<code>[90, 110, 130, 150, 170]</code>度に，設定できる．（それ以外はデフォルトのまま．）</p>
 <pre><code>public override void Initialize() {
   base.Initialize();
-  ObservationConfig = new List&lt;double&gt;(){
+  SensorAngleConfig = new List&lt;double&gt;(){
     0, 45, 90, 135, 180,
     90, 110, 130, 150, 170
   };
@@ -388,7 +388,7 @@ Q学習を用いた対戦用のAIを実装したコードです。学習済み�
 </code></pre>
 <p>自分が作成した<code>BattleBrain</code>のアセットのInspectorタブから変更することも可能．
 <br>
-<img src="file:///d:\Documents\github-repos\self-driving-competition\Pictures\ObservationConfig.png" alt="ObservaionConfig"></p>
+<img src="file:///d:\Documents\github-repos\self-driving-competition\Pictures\SensorAngleConfig.png" alt="ObservaionConfig"></p>
 <h3 id="次のwaypointの方向に関する注意点">次のWaypointの方向に関する注意点</h3>
 <p>次のWaypointの方向に関する情報は<code>Waypoints/Waypoint.cs</code>の<code>NextDirection</code>変数に保存されているが、これは既にWaypointが配置されているシーンでは，<code>Waypoint.NextDirection</code>は自動的には計算されない。手動で<code>Set Next Direction</code>を押して設定するか<code>Set</code>し直す必要がある．</p>
 <p><img src="https://user-images.githubusercontent.com/82144808/196850035-b623b7a9-68c4-4128-8abd-70b28599b652.png" alt="waypoint-set-next-direction"></p>

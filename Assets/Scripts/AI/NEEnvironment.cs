@@ -20,11 +20,12 @@ public class NEEnvironment : Environment
     [SerializeField] private int eliteSelection = 4;
     private int EliteSelection { get { return eliteSelection; } }
 
-    [SerializeField] public bool[] selectedSensors = new bool[46];
+    [SerializeField] public bool[] selectedInputs = new bool[46];
+    [SerializeField] public List<double> sensorAngleConfig = new List<double>();
 
     private int InputSize { get; set; }
 
-    private List<int> SelectedSensorsList { get; set; }
+    private List<int> SelectedInputsList { get; set; }
 
     [SerializeField] private int hiddenSize = 8;
     private int HiddenSize { get { return hiddenSize; } }
@@ -62,19 +63,19 @@ public class NEEnvironment : Environment
     void Start() {
         // Calculate and set input size.
         int sensorCount = 0;
-        foreach (bool value in selectedSensors)
+        foreach (bool value in selectedInputs)
         {
             if (value) sensorCount++;
         }
         InputSize = sensorCount;
 
         // Calculate and set sensors list.
-        List<int> selectedSensorsList = new List<int>();
-        for (int i = 0; i < selectedSensors.Length; i++)
+        List<int> selectedInputsList = new List<int>();
+        for (int i = 0; i < selectedInputs.Length; i++)
         {
-            if (selectedSensors[i]) selectedSensorsList.Add(i);
+            if (selectedInputs[i]) selectedInputsList.Add(i);
         }
-        SelectedSensorsList = selectedSensorsList;
+        SelectedInputsList = selectedInputsList;
 
         // Initialize brain.
         for(int i = 0; i < TotalPopulation; i++) {
@@ -87,6 +88,12 @@ public class NEEnvironment : Environment
             GObjects.Add(obj);
             Agents.Add(obj.GetComponent<Agent>());
         }
+        
+        foreach(Agent agent in Agents)
+        {
+            agent.SetAgentConfig(sensorAngleConfig);
+        }
+
         BestRecord = -9999;
         SetStartAgents();
     }
@@ -131,7 +138,7 @@ public class NEEnvironment : Environment
 
     private void AgentUpdate(Agent a, NNBrain b) {
         var observation = a.GetAllObservations();
-        var rearranged = RearrangeObservation(observation, SelectedSensorsList);
+        var rearranged = RearrangeObservation(observation, SelectedInputsList);
         var action = b.GetAction(rearranged);
         a.AgentAction(action, false);
     }

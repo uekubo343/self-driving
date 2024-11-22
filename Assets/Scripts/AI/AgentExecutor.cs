@@ -92,7 +92,7 @@ public class AgentExecutor : MonoBehaviour
             Agents[index].agent.agentIndex=index;
 
             Agents[index].brain.Initialize();
-            Agents[index].agent.SetAgentConfig(Agents[index].brain.ObservationConfig);
+            Agents[index].agent.SetAgentConfig(Agents[index].brain.SensorAngleConfig);
         }
         catch (Exception ex)
         {
