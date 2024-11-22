@@ -17,17 +17,11 @@ public class WaypointsControllerInspector : Editor
         if(GUILayout.Button("Set")) {
             Clear(controller);
             Set(controller);
-            SetNextDirection(controller);
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         if(GUILayout.Button("Clear")) {
             Clear(controller);
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-        }
-
-        if(GUILayout.Button("Set Next Direction")) {
-            SetNextDirection(controller);
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
@@ -91,22 +85,6 @@ public class WaypointsControllerInspector : Editor
             list.Add(c.gameObject);
         }
         list.ForEach(o => DestroyImmediate(o));
-    }
-
-    private void SetNextDirection(WaypointsController controller) {
-        List<Waypoint> waypoints = controller.GetComponentsInChildren<Waypoint>()
-                                   .Where(x => x.transform != controller.Prefab.transform)
-                                   .Where(x => x.transform != controller.transform)
-                                   .OrderBy(x => x.Index)
-                                   .ToList();
-        Waypoint lastWaypoint = null;
-        // Set next directions of index 0 to n-2
-        foreach(Waypoint nextWaypoint in waypoints) {
-            if(lastWaypoint != null) lastWaypoint.SetNextDirection(nextWaypoint.transform.position);
-            lastWaypoint = nextWaypoint;
-        }
-        // Set next direction of the last waypoint
-        if(lastWaypoint != null) lastWaypoint.SetNextDirection(waypoints[0].transform.position);
     }
 
     private Vector3 ProjectOnSide(Vector3 forward, Transform transform) {
