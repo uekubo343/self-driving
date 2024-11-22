@@ -68,11 +68,11 @@ public class UDP : IDisposable
             OnReceive?.Invoke(message);
             WaitingForResponse = false;
         }
-        catch(SocketException ex) {
+        catch(SocketException) {
             Dispose();
             return;
         }
-        catch(ObjectDisposedException ex) {
+        catch(ObjectDisposedException) {
             Dispose();
             return;
         }

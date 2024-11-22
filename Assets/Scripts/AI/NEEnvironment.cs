@@ -20,8 +20,11 @@ public class NEEnvironment : Environment
     [SerializeField] private int eliteSelection = 4;
     private int EliteSelection { get { return eliteSelection; } }
 
-    [SerializeField] private int inputSize = 7;
-    private int InputSize { get { return inputSize; } }
+    [SerializeField] public bool[] selectedSensors = new bool[46];
+
+    private int InputSize { get; set; }
+
+    private List<int> SelectedSensorsList { get; set; }
 
     [SerializeField] private int hiddenSize = 8;
     private int HiddenSize { get { return hiddenSize; } }
@@ -57,6 +60,23 @@ public class NEEnvironment : Environment
     private Queue<NNBrain> CurrentBrains { get; set; }
 
     void Start() {
+        // Calculate and set input size.
+        int sensorCount = 0;
+        foreach (bool value in selectedSensors)
+        {
+            if (value) sensorCount++;
+        }
+        InputSize = sensorCount;
+
+        // Calculate and set sensors list.
+        List<int> selectedSensorsList = new List<int>();
+        for (int i = 0; i < selectedSensors.Length; i++)
+        {
+            if (selectedSensors[i]) selectedSensorsList.Add(i);
+        }
+        SelectedSensorsList = selectedSensorsList;
+
+        // Initialize brain.
         for(int i = 0; i < TotalPopulation; i++) {
             Brains.Add(new NNBrain(InputSize, HiddenSize, HiddenLayers, OutputSize));
         }
@@ -111,7 +131,8 @@ public class NEEnvironment : Environment
 
     private void AgentUpdate(Agent a, NNBrain b) {
         var observation = a.GetAllObservations();
-        var action = b.GetAction(observation);
+        var rearranged = RearrangeObservation(observation, SelectedSensorsList);
+        var action = b.GetAction(rearranged);
         a.AgentAction(action, false);
     }
 
@@ -168,6 +189,24 @@ public class NEEnvironment : Environment
         }
         Brains = children;
         Generation++;
+    }
+
+    protected List<double> RearrangeObservation(List<double> observation, List<int> indexesToUse)
+    {
+        if(observation == null || indexesToUse == null) return null;
+
+        List<double> rearranged = new List<double>();
+        foreach(int index in indexesToUse)
+        {
+            if(index >= observation.Count)
+            {
+                rearranged.Add(0);
+                continue;
+            }
+            rearranged.Add(observation[index]);
+        }
+
+        return rearranged;
     }
 
     private void UpdateText() {

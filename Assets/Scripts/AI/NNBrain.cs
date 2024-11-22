@@ -33,6 +33,9 @@ public class NNBrain : Brain
     public int OutputSize { get { return outputSize; } private set { outputSize = value; } }
 
     public double[] GetAction(List<double> observation) {
+        if (observation.Count != InputSize) {
+            throw new ArgumentException($"Input size mismatch: observation.Count ({observation.Count}) does not match the expected InputSize ({InputSize}). Please check if selected sensors match for the trained data and your custom brain.");
+        }
         var action = Predict(observation.ToArray());
         return action;
     }
@@ -73,6 +76,9 @@ public class NNBrain : Brain
         var output = new Matrix(inputs);
         var result = new double[OutputSize];
         for(int i = 0; i < HiddenLayers + 1; i++) {
+            if (output.Column != Weights[i].Row) {
+                throw new InvalidOperationException($"Dimension mismatch: output.Columns ({output.Column}) and Weights[{i}].Rows ({Weights[i].Row}) do not match. Please check sensor count.");
+            }
             output = output.Mul(Weights[i]);
             var b = Biases[i];
             if(i != HiddenLayers) {
