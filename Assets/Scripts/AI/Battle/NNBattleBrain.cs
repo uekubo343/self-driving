@@ -8,7 +8,7 @@ public class NNBattleBrain : BattleBrain
 {
     [SerializeField] private TextAsset brainData = null;
 
-    private NNBrain brain;
+    [HideInInspector] public NNBrain brain;
 
     public override void Initialize() {
         base.Initialize();
@@ -22,22 +22,12 @@ public class NNBattleBrain : BattleBrain
         }
     }
 
+    /// <summary>
+    /// `BattleBrain`の`GetAction()`関数をoverrideする.
+    /// 入力のうち0, 1, 2, 3, 4, 40, 42番目のみを使う.
+    /// </summary>
     public override double[] GetAction(List<double> observation)
     {
-        return brain.GetAction(ProcessObservation(observation));
-    }
-
-    protected virtual List<double> ProcessObservation(List<double> observation)
-    {
-        return RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42});
-    }
-
-    public List<int> CreateSelectedInputsList(bool[] selectedInputs) {
-        List<int> selectedInputsList = new List<int>();
-        for (int i = 0; i < selectedInputs.Length; i++)
-        {
-            if (selectedInputs[i]) selectedInputsList.Add(i);
-        }
-        return selectedInputsList;
+        return brain.GetAction(RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42}));
     }
 }
