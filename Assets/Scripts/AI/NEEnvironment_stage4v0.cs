@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEditor.SceneManagement;
 #endif
 
-public class NEEnvironment_stage4default : Environment
+public class NEEnvironment_stage4v0 : Environment
 {
     [Header("Settings"), SerializeField] private int totalPopulation = 100;
     private int TotalPopulation { get { return totalPopulation; } }

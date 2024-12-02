@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3f86d9fc748648ceaeb6de71f39bce3, type: 3}
-  m_Name: New Stage 4default Battle Brain
+  m_Name: New Stage 4v0 Battle Brain
   m_EditorClassIdentifier: 
-  Name: stage4default
+  Name: stage4v0
   SensorAngleConfig:
   - 50
   - 70
