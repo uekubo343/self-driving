@@ -255,14 +255,14 @@ public class CarAgent : Agent
 
         var v = CarRb.velocity.magnitude;
         if (v < 5) {
-            AddReward(-0.04f);
+            AddReward(-0.4f);
         }
         else if (v < 10) {
-            AddReward(-0.02f);
+            AddReward(-0.2f);
         };
 
         if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
-            AddReward(0.01f); // 探索報酬
+            AddReward(1.0f); // 探索報酬
         }
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);
@@ -316,7 +316,7 @@ public class CarAgent : Agent
             bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
             bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
             if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
-                DoneWithReward(-1.0f / TotalDistance);
+                DoneWithReward(-10.0f / TotalDistance);
                 return;
             }
         }
@@ -324,7 +324,7 @@ public class CarAgent : Agent
         WaypointIndex = waypoint.Index;
 
         // WayPoint通過時に報酬を与える
-        AddReward(0.1f / (WaypointIndex + 1));
+        AddReward(10.0f / (WaypointIndex + 1));
 
         if(waypoint.IsLast) {
             WaypointIndex = 0;
