@@ -108,6 +108,30 @@ AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報�
 v6をsetRewardに
 
 
+## v8
+
+v7のまま
+
+var v = CarRb.velocity.magnitude;
+        if (v < 5) {
+            AddReward(-0.04f);
+        }
+        else if (v < 10) {
+            AddReward(-0.02f);
+        };
+
+        if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
+            AddReward(0.01f); // 探索報酬
+        }
+
+        // WayPoint通過時に報酬を与える
+        AddReward(2.0f / (WaypointIndex + 1));
+
+
+        if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
+            AddReward(0.1f * TotalDistance);
+        }
+
 # 今後やること
 ## NNBattleBrain.csの編集
 これダメでは？？
