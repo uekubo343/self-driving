@@ -83,6 +83,31 @@ AddReward(v/10.0f);
 100-85-4, 8-1-4-6
 
 
+## v6
+0~14,40,42, 43,44,45
+50,70,90,110,130
+
+// WayPoint通過時に報酬を与える
+AddReward(1.0f / (WaypointIndex + 1));
+
+plusrewardをtrueに
+currentMaxのとき到達距離の評価を*1
+
+velocity<10なら-0.1
+Donewithrewardの中身をaddrewardにする
+全部-1に
+
+AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
+
+ランダム報酬
+
+100-85-4, 8-1-4-6
+
+## v7
+
+v6をsetRewardに
+
+
 # 今後やること
 ## NNBattleBrain.csの編集
 これダメでは？？
