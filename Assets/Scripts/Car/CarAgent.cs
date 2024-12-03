@@ -244,12 +244,13 @@ public class CarAgent : Agent
             }
 
             if(LocalStep > LocalStepMax) {
-                DoneWithReward(-1.0f / TotalDistance);
+                DoneWithReward(-100.0f / TotalDistance);
                 return;
             }
         }
 
-        if (CarRb.velocity.magnitude < 10) {AddReward(-0.1f);}
+        var v = CarRb.velocity.magnitude;
+        AddReward(v/10.0f);
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);
         float gasInput = 0.0f;
@@ -286,7 +287,7 @@ public class CarAgent : Agent
             if (BackUpOnCollision) {
                 StartBackingUp();
             } else {
-                DoneWithReward(-1.0f/TotalDistance);
+                DoneWithReward(-100.0f/TotalDistance);
             }
         }
     }
@@ -302,12 +303,16 @@ public class CarAgent : Agent
             bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
             bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
             if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
-                DoneWithReward(-1.0f / TotalDistance);
+                DoneWithReward(-100.0f / TotalDistance);
                 return;
             }
         }
 
         WaypointIndex = waypoint.Index;
+
+        // WayPoint通過時に報酬を与える
+        AddReward(1.0f / (WaypointIndex + 1));
+
         if(waypoint.IsLast) {
             WaypointIndex = 0;
             passLastPoint=true;
@@ -331,7 +336,7 @@ public class CarAgent : Agent
             reward = 0;
         }
 
-        SetReward(reward);
+        AddReward(reward);
         Done();
     }
 }

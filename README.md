@@ -67,6 +67,22 @@ velocity<10なら-0.1
 100-85-4, 8-1-4-6
 
 
+## v5
+// WayPoint通過時に報酬を与える
+AddReward(1.0f / (WaypointIndex + 1));
+
+Donewithrewardの中身をaddrewardにする
+全部-100に
+
+var v = CarRb.velocity.magnitude;
+AddReward(v/10.0f);
+
+
+0~14,40,42
+50,70,90,110,130
+100-85-4, 8-1-4-6
+
+
 # 今後やること
 ## NNBattleBrain.csの編集
 これダメでは？？
