@@ -239,7 +239,7 @@ public class CarAgent : Agent
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
-                DoneWithReward(TotalDistance);
+                DoneWithReward(TotalDistance*2);
                 return;
             }
 
@@ -284,7 +284,7 @@ public class CarAgent : Agent
             if (BackUpOnCollision) {
                 StartBackingUp();
             } else {
-                DoneWithReward(-1.0f / TotalDistance);
+                DoneWithReward(-10.0f / TotalDistance);
             }
         }
     }

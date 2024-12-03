@@ -19,15 +19,27 @@
 
 20世代まで
 
+## v2
+0~14,40,42
+50,70,90,110,130
+currentMaxのとき到達距離の評価を*2
+carAgent衝突を-10に
+
+100-85-4, 16-2-4-6
+
+25世代まで
+
 
 # 今後やること
 ## NNBattleBrain.csの編集
-    これダメでは？？
+これダメでは？？
+```cs
 /// <summary>
-    /// `BattleBrain`の`GetAction()`関数をoverrideする.
-    /// 入力のうち0, 1, 2, 3, 4, 40, 42番目のみを使う.
-    /// </summary>
-    public override double[] GetAction(List<double> observation)
-    {
-        return brain.GetAction(RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42}));
-    }
+/// `BattleBrain`の`GetAction()`関数をoverrideする.
+/// 入力のうち0, 1, 2, 3, 4, 40, 42番目のみを使う.
+/// </summary>
+public override double[] GetAction(List<double> observation)
+{
+    return brain.GetAction(RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42}));
+}
+```
