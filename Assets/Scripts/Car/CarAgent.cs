@@ -239,7 +239,7 @@ public class CarAgent : Agent
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
-                DoneWithReward(TotalDistance*2);
+                DoneWithReward(TotalDistance);
                 return;
             }
 
@@ -248,6 +248,8 @@ public class CarAgent : Agent
                 return;
             }
         }
+
+        if (CarRb.velocity.magnitude < 10) {AddReward(-0.1f);}
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);
         float gasInput = 0.0f;
@@ -284,7 +286,7 @@ public class CarAgent : Agent
             if (BackUpOnCollision) {
                 StartBackingUp();
             } else {
-                DoneWithReward(-10.0f / TotalDistance);
+                DoneWithReward(-1.0f/TotalDistance);
             }
         }
     }

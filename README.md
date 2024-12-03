@@ -29,6 +29,43 @@ carAgent衝突を-10に
 
 25世代まで
 
+## C1v2
+challenge1
+0~14,40,41,42
+50,70,90,110,130
+currentMaxのとき到達距離の評価を*1
+carAgent衝突を0に
+
+100-85-4, 24-2-4-8
+
+25世代まで
+
+## C3v3
+challenge3
+0~14,40,41,42
+50,70,90,110,130
+plusrewardをfalseに
+currentMaxのとき到達距離の評価を*1
+LocalMaxのとき評価*-5
+carAgent衝突を*-10
+逆走を*-3
+
+
+100-85-4, 8-1-4-8
+
+25世代まで
+
+## v4
+0~14,40,42
+50,70,90,110,130
+sideは30,60,90,120,150
+plusrewardをtrueに
+currentMaxのとき到達距離の評価を*1
+velocity<10なら-0.1
+全て-1
+
+100-85-4, 8-1-4-6
+
 
 # 今後やること
 ## NNBattleBrain.csの編集
@@ -43,3 +80,8 @@ public override double[] GetAction(List<double> observation)
     return brain.GetAction(RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42}));
 }
 ```
+
+
+# 発見
+NNの隠れ層をいじるとくねくねする
+v4のように低速にペナをつけると速くなる
