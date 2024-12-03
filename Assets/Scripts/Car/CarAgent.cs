@@ -255,14 +255,14 @@ public class CarAgent : Agent
 
         var v = CarRb.velocity.magnitude;
         if (v < 5) {
-            AddReward(-0.4f);
+            AddReward(-0.08f);
         }
         else if (v < 10) {
-            AddReward(-0.2f);
+            AddReward(-0.04f);
         };
 
         if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
-            AddReward(1.0f); // 探索報酬
+            AddReward(0.1f); // 探索報酬
         }
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);

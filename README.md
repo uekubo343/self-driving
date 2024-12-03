@@ -132,6 +132,9 @@ var v = CarRb.velocity.magnitude;
             AddReward(0.1f * TotalDistance);
         }
 
+## v9
+他の設定は一緒
+
 # 今後やること
 ## NNBattleBrain.csの編集
 これダメでは？？
