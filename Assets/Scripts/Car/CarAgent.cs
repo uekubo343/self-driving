@@ -310,6 +310,12 @@ public class CarAgent : Agent
         }
         var braking = Mathf.Clamp((float)vectorAction[2], 0.0f, 1.0f);
 
+        if (Math.Abs(Controller.SteerInput - steering) > 0.2) {
+            AddReward(-0.01f);
+        } else {
+            AddReward(0.01f);
+        }
+
         Controller.SteerInput = steering;
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
