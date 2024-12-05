@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // // 自分でAIを実装する場合 -------------------------------------------------------------
-// [CreateAssetMenu(menuName = "BattleBrain/{StudentName}BattleBrain")]
-// public class {StudentName}BattleBrain : BattleBrain {
+// [CreateAssetMenu(menuName = "BattleBrain/v16BattleBrain")]
+// public class v16BattleBrain : BattleBrain {
 // public virtual void Initialize() { }
 //
 //     public override void Initialize() {
@@ -20,8 +20,8 @@ using UnityEngine;
 // // ---------------------------------------------------------------------------------
 
 // ニューラルネットワークのAIを使う場合 --------------------------------------------------
-[CreateAssetMenu(menuName = "BattleBrain/{StudentName}BattleBrain")]
-public class {StudentName}BattleBrain : NNBattleBrain
+[CreateAssetMenu(menuName = "BattleBrain/v16BattleBrain")]
+public class v16BattleBrain : NNBattleBrain
 {
     /// <summary>
     /// 使用するセンサーの設定.
@@ -31,7 +31,7 @@ public class {StudentName}BattleBrain : NNBattleBrain
     /// <summary>
     /// `NNBattleBrain`の`GetAction()`をoverrideする.
     /// `NNBattleBrain`の`GetAction()`は0, 1, 2, 3, 4, 40, 42番目のセンサーを使うが、
-    /// `{StudentName}BattleBrain`ではInspectorのSelected Inputsで選択したセンサーの値を使う.
+    /// `v16BattleBrain`ではInspectorのSelected Inputsで選択したセンサーの値を使う.
     /// </summary>
     public override double[] GetAction(List<double> observation)
     {
@@ -54,8 +54,8 @@ public class {StudentName}BattleBrain : NNBattleBrain
 // ---------------------------------------------------------------------------------
 
 // // Q学習のAIを使う場合 ----------------------------------------------------------------
-// [CreateAssetMenu(menuName = "BattleBrain/{StudentName}BattleBrain")]
-// public class {StudentName}BattleBrain : QBattleBrain
+// [CreateAssetMenu(menuName = "BattleBrain/v16BattleBrain")]
+// public class v16BattleBrain : QBattleBrain
 // {
 //     /// <summary>
 //     /// `QBattleBrain`の`GetAction()`をoverrideする.
