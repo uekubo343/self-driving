@@ -237,8 +237,8 @@ public class CarAgent : Agent
         LocalStep++;
         TotalDistance += (transform.position - LastPosition).magnitude;
         var v = CarRb.velocity.magnitude;
-        AddReward(0.001f*v)
-        AddReward(0.005f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
+        AddReward(0.001f*v);
+        AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
         // if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
         //     AddReward(0.1f * TotalDistance);
         // }
