@@ -253,6 +253,25 @@ public class CarAgent : Agent
             }
         }
 
+        // 現在の進行方向（ローカル座標系）
+        Vector3 velocityDirection = CarRb.velocity.normalized;
+
+        // 次のWaypoint方向（ローカル座標系）
+        Vector3 normalizedNextDirection = NextWaypointDirection.normalized;
+
+        // 方向のコサイン類似度を計算
+        float directionAlignment = Vector3.Dot(velocityDirection, normalizedNextDirection);
+
+        // 評価に基づいた報酬付与（角度が小さいほど報酬が高い）
+        if (directionAlignment > 0.9f) {
+            AddReward(0.05f); // 非常に良い方向
+        } else if (directionAlignment > 0.5f) {
+            AddReward(0.02f); // 良い方向
+        } else {
+            AddReward(-0.01f); // 悪い方向
+        }
+
+
         var v = CarRb.velocity.magnitude;
         if (v < 5) {
             AddReward(-0.08f);
