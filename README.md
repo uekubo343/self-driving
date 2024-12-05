@@ -175,6 +175,10 @@ AddReward(0.001f*v)
 AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
 右側だと72s
 
+## v15
+v14と同じ
+横は1030507090
+
 # 今後やること
 ## NNBattleBrain.csの編集
 これダメでは？？
