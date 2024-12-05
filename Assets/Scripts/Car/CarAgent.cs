@@ -316,7 +316,7 @@ public class CarAgent : Agent
             bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
             bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
             if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
-                DoneWithReward(-10.0f / TotalDistance);
+                DoneWithReward(-2.0f / TotalDistance);
                 return;
             }
         }
@@ -324,7 +324,7 @@ public class CarAgent : Agent
         WaypointIndex = waypoint.Index;
 
         // WayPoint通過時に報酬を与える
-        AddReward(10.0f / (WaypointIndex + 1));
+        AddReward(5.0f / (WaypointIndex + 1));
 
         if(waypoint.IsLast) {
             WaypointIndex = 0;

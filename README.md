@@ -106,6 +106,7 @@ AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報�
 ## v7
 
 v6をsetRewardに
+最強（96びょう）
 
 
 ## v8
@@ -132,7 +133,11 @@ var v = CarRb.velocity.magnitude;
             AddReward(0.1f * TotalDistance);
         }
 
+早かったが壁にぶつかって死んだ
+
 ## v9
+逆走2倍、waypoint通過時の報酬を5倍
+速度報酬を2倍
 他の設定は一緒
 
 # 今後やること
