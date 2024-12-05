@@ -215,19 +215,19 @@ v17に
 角度報酬消して
 12-1-4-6の速度報酬強め（最初の100は速度報酬なし）
 
+## v19
+角度報酬消して
+6-1-4-6の速度報酬強め
+（最初の100とそれ以降で速度報酬変える）
+感想はできたがv7に速度で負けた
+
+
 # 今後やること
 ## NNBattleBrain.csの編集
-これダメでは？？
-```cs
-/// <summary>
-/// `BattleBrain`の`GetAction()`関数をoverrideする.
-/// 入力のうち0, 1, 2, 3, 4, 40, 42番目のみを使う.
-/// </summary>
-public override double[] GetAction(List<double> observation)
-{
-    return brain.GetAction(RearrangeObservation(observation, new List<int>{0, 1, 2, 3, 4, 40, 42}));
-}
-```
+急ハンドルに罰則をつける
+逆になめらかな変化に報酬を与える
+角度の調整
+角速度に罰則をつける
 
 
 # 発見

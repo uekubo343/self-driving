@@ -275,6 +275,9 @@ public class CarAgent : Agent
                 AddReward(0.08f);
             }
         }
+        else {
+            AddReward(0.01f * v);
+        }
 
         // // 現在の進行方向（ローカル座標系）
         // Vector3 velocityDirection = CarRb.velocity.normalized;
@@ -293,9 +296,6 @@ public class CarAgent : Agent
         // } else {
         //     AddReward(-0.02f); // 悪い方向
         // }
-
-
-
 
         if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
             AddReward(0.1f); // 探索報酬
