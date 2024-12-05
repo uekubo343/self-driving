@@ -236,7 +236,9 @@ public class CarAgent : Agent
         CurrentStep++;
         LocalStep++;
         TotalDistance += (transform.position - LastPosition).magnitude;
-        AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
+        var v = CarRb.velocity.magnitude;
+        AddReward(0.001f*v)
+        AddReward(0.005f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
         // if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
         //     AddReward(0.1f * TotalDistance);
         // }
@@ -253,32 +255,45 @@ public class CarAgent : Agent
             }
         }
 
-        // 現在の進行方向（ローカル座標系）
-        Vector3 velocityDirection = CarRb.velocity.normalized;
-
-        // 次のWaypoint方向（ローカル座標系）
-        Vector3 normalizedNextDirection = NextWaypointDirection.normalized;
-
-        // 方向のコサイン類似度を計算
-        float directionAlignment = Vector3.Dot(velocityDirection, normalizedNextDirection);
-
-        // 評価に基づいた報酬付与（角度が小さいほど報酬が高い）
-        if (directionAlignment > 0.9f) {
-            AddReward(0.05f); // 非常に良い方向
-        } else if (directionAlignment > 0.5f) {
-            AddReward(0.02f); // 良い方向
-        } else {
-            AddReward(-0.01f); // 悪い方向
-        }
-
-
-        var v = CarRb.velocity.magnitude;
+        
         if (v < 5) {
-            AddReward(-0.08f);
+            AddReward(-0.03f);
         }
         else if (v < 10) {
-            AddReward(-0.04f);
-        };
+            AddReward(-0.01f);
+        }
+        else if (v < 15) {
+            AddReward(0.01f);
+        }
+        else if (v < 20) {
+            AddReward(0.04f);
+        }
+        else if (v > 20) {
+            AddReward(0.07f);
+        }
+
+        // // 現在の進行方向（ローカル座標系）
+        // Vector3 velocityDirection = CarRb.velocity.normalized;
+
+        // // 次のWaypoint方向（ローカル座標系）
+        // Vector3 normalizedNextDirection = NextWaypointDirection.normalized;
+
+        // // 方向のコサイン類似度を計算
+        // float directionAlignment = Vector3.Dot(velocityDirection, normalizedNextDirection);
+
+        // // 評価に基づいた報酬付与（角度が小さいほど報酬が高い）
+        // if (directionAlignment > 0.9f) {
+        //     AddReward(0.05f); // 非常に良い方向
+        // } else if (directionAlignment > 0.75f) {
+        //     AddReward(0.03f); // 良い方向
+        // } else if (directionAlignment > 0.5f) {
+        //     AddReward(0.01f); // 良い方向
+        // } else {
+        //     AddReward(-0.01f); // 悪い方向
+        // }
+
+
+
 
         if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
             AddReward(0.1f); // 探索報酬
