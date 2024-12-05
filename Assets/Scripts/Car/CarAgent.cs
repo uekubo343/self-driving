@@ -255,21 +255,25 @@ public class CarAgent : Agent
             }
         }
 
-        
-        if (v < 5) {
-            AddReward(-0.03f);
-        }
-        else if (v < 10) {
-            AddReward(-0.01f);
-        }
-        else if (v < 15) {
-            AddReward(0.01f);
-        }
-        else if (v < 20) {
-            AddReward(0.04f);
-        }
-        else if (v > 20) {
-            AddReward(0.07f);
+        if (currentStep > 100) {
+            if (v < 5) {
+                AddReward(-0.03f);
+            }
+            else if (v < 10) {
+                AddReward(-0.01f);
+            }
+            else if (v < 15) {
+                AddReward(0.02f);
+            }
+            else if (v < 20) {
+                AddReward(0.04f);
+            }
+            else if (v < 25) {
+                AddReward(0.06f);
+            }
+            else if (v > 25) {
+                AddReward(0.08f);
+            }
         }
 
         // // 現在の進行方向（ローカル座標系）
@@ -283,13 +287,11 @@ public class CarAgent : Agent
 
         // // 評価に基づいた報酬付与（角度が小さいほど報酬が高い）
         // if (directionAlignment > 0.9f) {
-        //     AddReward(0.05f); // 非常に良い方向
-        // } else if (directionAlignment > 0.75f) {
-        //     AddReward(0.03f); // 良い方向
+        //     AddReward(0.01f); // 非常に良い方向
         // } else if (directionAlignment > 0.5f) {
-        //     AddReward(0.01f); // 良い方向
+        //     AddReward(0.005f); // 良い方向
         // } else {
-        //     AddReward(-0.01f); // 悪い方向
+        //     AddReward(-0.02f); // 悪い方向
         // }
 
 
