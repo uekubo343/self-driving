@@ -236,10 +236,10 @@ public class CarAgent : Agent
         CurrentStep++;
         LocalStep++;
         TotalDistance += (transform.position - LastPosition).magnitude;
-        // AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
-        if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
-            AddReward(0.1f * TotalDistance);
-        }
+        AddReward(0.01f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
+        // if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
+        //     AddReward(0.1f * TotalDistance);
+        // }
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
@@ -316,7 +316,7 @@ public class CarAgent : Agent
             bool reverseRunFromStartPosition = waypoint.Index>WaypointIndex+1;
             bool reverseRunFromOtherPosition = waypoint.Index<=WaypointIndex;
             if( reverseRunFromOtherPosition|| reverseRunFromStartPosition){
-                DoneWithReward(-2.0f / TotalDistance);
+                DoneWithReward(-1.0f / TotalDistance);
                 return;
             }
         }
@@ -324,7 +324,7 @@ public class CarAgent : Agent
         WaypointIndex = waypoint.Index;
 
         // WayPoint通過時に報酬を与える
-        AddReward(5.0f / (WaypointIndex + 1));
+        AddReward(1.0f / (WaypointIndex + 1));
 
         if(waypoint.IsLast) {
             WaypointIndex = 0;
