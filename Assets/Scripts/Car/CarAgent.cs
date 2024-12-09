@@ -310,15 +310,29 @@ public class CarAgent : Agent
         }
         var braking = Mathf.Clamp((float)vectorAction[2], 0.0f, 1.0f);
 
-        if (Math.Abs(Controller.SteerInput - steering) > 0.2) {
-            AddReward(-0.01f);
-        } else {
-            AddReward(0.01f);
-        }
+        // // 急ハンドルに罰則を追加
+        // if (currentStep == 1000) {
+        //     Debug.Log(Controller.SteerInput - steering);
+        // }
+        // if (Math.Abs(Controller.SteerInput - steering) > 0.05) {
+        //     AddReward(-0.5f);
+        // } else if (Math.Abs(Controller.SteerInput - steering) > 0.1) {
+        //     AddReward(-1.0f);
+        // } else {
+        //     AddReward(0.01f);
+        // }
 
         Controller.SteerInput = steering;
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
+
+        if (currentStep == 1000) {
+           Debug.Log(steering);
+        }
+        if (transform.position[2] - LastPosition[2] > 0) {
+            AddReward(gasInput-braking);
+        }
+
         LastPosition = transform.position;
     }
 
