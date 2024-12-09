@@ -137,7 +137,7 @@ public class NEEnvironment : Environment
     }
 
     private void AgentUpdate(Agent a, NNBrain b) {
-        var observation = a.GetAllObservations();
+        var observation = a.OriginalObservations();
         var rearranged = RearrangeObservation(observation, SelectedInputsList);
         var action = b.GetAction(rearranged);
         a.AgentAction(action, false);

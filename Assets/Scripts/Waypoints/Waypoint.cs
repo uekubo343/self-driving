@@ -29,7 +29,9 @@ public class Waypoint : MonoBehaviour
     /// <summary>
     /// 次に進む方向のリスト
     /// </summary>
-    public IReadOnlyList<Vector3> NextDirections => nextDirections;
+    public List<Vector3> NextDirections {
+        get { return nextDirections; }
+    }
 
     [Header("Layer Settings"), SerializeField] private string layerWall = "Wall";
     private string LayerWall => layerWall;
@@ -83,13 +85,13 @@ public class Waypoint : MonoBehaviour
         NextDirection = Vector3.Normalize(nextPosition - transform.position);
     }
 
-    public void SetNextDirections(IEnumerable<Vector3> nextPositions) {
+    public void SetNextDirections(List <Vector3> nextPositions) {
         nextDirections.Clear(); // 既存の方向をクリア
         Vector3 currentPosition = transform.position;
 
         foreach (var nextPosition in nextPositions) {
             nextDirections.Add(Vector3.Normalize(nextPosition - currentPosition));
-            currentPosition = nextPosition;
+            currentPosition = nextPosition; // 現在位置からnつ先ではなくnとn+1の間を求める
         }
     }
 

@@ -36,7 +36,8 @@ public class CarAgent : Agent
     private int WaypointIndex { get; set; }
     private bool passLastPoint=false;
     // 次のWaypointの方向（グローバル座標）
-    private Vector3 NextWaypointDirection = Vector3.forward;
+    // private Vector3 NextWaypointDirection = Vector3.forward;
+    private List <Vector3> NextWaypointDirections = new List<Vector3> { Vector3.forward, Vector3.forward, Vector3.forward };
 
     private void Awake() {
         CarRb = GetComponent<Rigidbody>();
@@ -108,11 +109,11 @@ public class CarAgent : Agent
         for(int i = 0; i < 3; i++) {
             results.Add(local_v[i] / 5.0f);
         }
-        // 前方向
-        Vector3 localNextDirection = CarRb.transform.InverseTransformDirection(NextWaypointDirection);
-        for(int i = 0; i < 3; i++) {
-            results.Add(localNextDirection[i]);
-        }
+        // // 前方向
+        // Vector3 localNextDirection = CarRb.transform.InverseTransformDirection(NextWaypointDirection);
+        // for(int i = 0; i < 3; i++) {
+        //     results.Add(localNextDirection[i]);
+        // }
         return results;
     }
 
@@ -193,15 +194,37 @@ public class CarAgent : Agent
     */
 
     public override List<double> OriginalObservations(){
-        //センサ情報を取得
         var results = new List<double>();
+        // センサー
         Array.ForEach(Sensors, sensor => {
             results.AddRange(sensor.Hits());
         });
-        /*
-            必要に応じて追加で格納する情報を追加
-        */
-        results.Add(CarRb.velocity.magnitude);
+        // 速度
+        Vector3 local_v = CarRb.transform.InverseTransformDirection(CarRb.velocity);
+        for(int i = 0; i < 3; i++) {
+            results.Add(local_v[i] / 5.0f);
+        }
+        // 前方向
+        // Vector3 localNextDirection = CarRb.transform.InverseTransformDirection(NextWaypointDirection);
+        // for(int i = 0; i < 3; i++) {
+        //     results.Add(localNextDirection[i]);
+        // }
+
+        Vector3 localNextDirection0 = CarRb.transform.InverseTransformDirection(NextWaypointDirections[0]);
+        for(int i = 0; i < 3; i++) {
+            results.Add(localNextDirection0[i]);
+        }
+
+        Vector3 localNextDirection1 = CarRb.transform.InverseTransformDirection(NextWaypointDirections[1]);
+        for(int i = 0; i < 3; i++) {
+            results.Add(localNextDirection1[i]);
+        }
+
+        Vector3 localNextDirection2 = CarRb.transform.InverseTransformDirection(NextWaypointDirections[2]);
+        for(int i = 0; i < 3; i++) {
+            results.Add(localNextDirection2[i]);
+        }
+
         return results;
     }
 
@@ -326,9 +349,10 @@ public class CarAgent : Agent
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
 
-        if (currentStep == 1000) {
-           Debug.Log(steering);
-        }
+        // if (currentStep == 1000) {
+        //    Debug.Log(steering);
+        // }
+
         if (transform.position[2] - LastPosition[2] > 0) {
             AddReward(gasInput-braking);
         }
@@ -391,7 +415,8 @@ public class CarAgent : Agent
         }
         LocalStep = 0;
 
-        NextWaypointDirection = waypoint.NextDirection;
+        // NextWaypointDirection = waypoint.NextDirection;
+        NextWaypointDirections = waypoint.NextDirections;
     }
 
     public override void Stop() {

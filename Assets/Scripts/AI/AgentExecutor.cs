@@ -119,7 +119,7 @@ public class AgentExecutor : MonoBehaviour
         if(Agents[index].agent.IsBackingUp) {
             action = Agents[index].agent.UpdateBackupTimerAndGetAction(Time.fixedDeltaTime);
         } else {
-            List<double> observation = Agents[index].agent.GetAllObservations();
+            List<double> observation = Agents[index].agent.OriginalObservations();
             action = Agents[index].brain.GetAction(observation);
         }
         Agents[index].agent.AgentAction(action, Agents[index].agent.IsBackingUp);

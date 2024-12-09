@@ -58,10 +58,10 @@ public class WaypointsController : MonoBehaviour
 
     public void SetNextDirections2() {
         List<Waypoint> waypoints = GetComponentsInChildren<Waypoint>()
-            .Where(x => x.transform != Prefab.transform)
-            .Where(x => x.transform != transform)
-            .OrderBy(x => x.Index)
-            .ToList();
+                                    .Where(x => x.transform != Prefab.transform)
+                                    .Where(x => x.transform != transform)
+                                    .OrderBy(x => x.Index)
+                                    .ToList();
 
         for (int i = 0; i < waypoints.Count; i++) {
             var nextPositions = new List<Vector3>();
@@ -72,15 +72,15 @@ public class WaypointsController : MonoBehaviour
             }
 
             waypoints[i].SetNextDirections(nextPositions);
+        }
     }
-}
 
     public Vector3 GetFirstNextDirection()
     {
         return GetComponentsInChildren<Waypoint>()
-        .Where(x => x.transform != Prefab.transform)
-        .Where(x => x.transform != transform)
-        .OrderBy(x => x.Index)
-        .ToList().Last().NextDirection;
+                .Where(x => x.transform != Prefab.transform)
+                .Where(x => x.transform != transform)
+                .OrderBy(x => x.Index)
+                .ToList().Last().NextDirection;
     }
 }
