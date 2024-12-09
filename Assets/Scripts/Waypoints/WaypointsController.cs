@@ -42,6 +42,7 @@ public class WaypointsController : MonoBehaviour
     public float MaxScale { get { return maxScale; } set { maxScale = value; } }
     public void Start() {
         SetNextDirections();
+        SetNextDirections2();
     }
 
     public void SetNextDirections() {
@@ -57,14 +58,22 @@ public class WaypointsController : MonoBehaviour
 
     public void SetNextDirections2() {
         List<Waypoint> waypoints = GetComponentsInChildren<Waypoint>()
-                                   .Where(x => x.transform != Prefab.transform)
-                                   .Where(x => x.transform != transform)
-                                   .OrderBy(x => x.Index)
-                                   .ToList();
+            .Where(x => x.transform != Prefab.transform)
+            .Where(x => x.transform != transform)
+            .OrderBy(x => x.Index)
+            .ToList();
+
         for (int i = 0; i < waypoints.Count; i++) {
-            waypoints[i].SetNextDirection(waypoints[(i + 1) % waypoints.Count].transform.position);
-        }
+            var nextPositions = new List<Vector3>();
+
+            for (int j = 1; j <= 3; j++) { // 次の次の次まで計算
+                int nextIndex = (i + j) % waypoints.Count;
+                nextPositions.Add(waypoints[nextIndex].transform.position);
+            }
+
+            waypoints[i].SetNextDirections(nextPositions);
     }
+}
 
     public Vector3 GetFirstNextDirection()
     {

@@ -1,5 +1,6 @@
 // SerialID: [77a855b2-f53d-4b80-9c94-c40562952b74]
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Waypoint : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class Waypoint : MonoBehaviour
         get { return nextDirection; }
         private set { nextDirection = value; }
     }
+
+    [SerializeField] private List<Vector3> nextDirections = new List<Vector3>();
+    /// <summary>
+    /// 次に進む方向のリスト
+    /// </summary>
+    public IReadOnlyList<Vector3> NextDirections => nextDirections;
 
     [Header("Layer Settings"), SerializeField] private string layerWall = "Wall";
     private string LayerWall => layerWall;
@@ -74,6 +81,16 @@ public class Waypoint : MonoBehaviour
 
     public void SetNextDirection(Vector3 nextPosition) {
         NextDirection = Vector3.Normalize(nextPosition - transform.position);
+    }
+
+    public void SetNextDirections(IEnumerable<Vector3> nextPositions) {
+        nextDirections.Clear(); // 既存の方向をクリア
+        Vector3 currentPosition = transform.position;
+
+        foreach (var nextPosition in nextPositions) {
+            nextDirections.Add(Vector3.Normalize(nextPosition - currentPosition));
+            currentPosition = nextPosition;
+        }
     }
 
     void OnDrawGizmosSelected() {
