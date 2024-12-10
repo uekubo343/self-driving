@@ -53,7 +53,7 @@ public class CarAgent : Agent
         LocalStep = 0;
         LastPosition = StartPosition;
         TotalDistance = 0;
-        CurrentStepMax = 5000;
+        CurrentStepMax = 3000;
     }
 
     public override void AgentReset() {
@@ -261,15 +261,11 @@ public class CarAgent : Agent
         LocalStep++;
         TotalDistance += (transform.position - LastPosition).magnitude;
         var v = CarRb.velocity.magnitude;
-        AddReward(0.001f*v);
-        AddReward(0.1f * TotalDistance); // 前進した距離に応じて微小な報酬を付与
-        // if (CurrentStep % 50 == 0) { // 50ステップごとに進行状況に応じた報酬
-        //     AddReward(0.1f * TotalDistance);
-        // }
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
-                DoneWithReward(Reward);
+                Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
+                DoneWithReward(Reward+TotalDistance);
                 return;
             }
 
@@ -355,12 +351,12 @@ public class CarAgent : Agent
         // }
 
         if (transform.position[2] - LastPosition[2] > 0) {
-            AddReward((gasInput-braking)*2);
+            AddReward((gasInput-braking)*0.1f);
         }
 
 
         float straightRate = Vector3.Dot(NextWaypointDirections[1].normalized, NextWaypointDirections[2].normalized);
-        if (straightRate > 0.98) { AddReward((gasInput - braking)*3); } // 少し後が10°以下なら直線とみなす
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.1f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
     }
