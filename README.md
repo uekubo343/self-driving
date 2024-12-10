@@ -293,6 +293,13 @@ currentstepmax = 10000
 ## v28
 今までの努力が水の泡になった
 走りきれない
+currentstepmax=3000
+
+## v29
+waypoint通過時の報酬を10に
+12-2-4-8
+100-70-10
+currentstepmax=3000
 
 
 # 今後やること

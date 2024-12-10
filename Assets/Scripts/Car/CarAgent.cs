@@ -405,7 +405,7 @@ public class CarAgent : Agent
         WaypointIndex = waypoint.Index;
 
         // WayPoint通過時に報酬を与える
-        AddReward(1.0f / (WaypointIndex + 1));
+        AddReward(10.0f);
 
         if(waypoint.IsLast) {
             WaypointIndex = 0;

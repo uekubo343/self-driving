@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2cd962a8de0c4b74bd438438481c4d6, type: 3}
+  m_Name: v29
+  m_EditorClassIdentifier: 
+  Name: v29
+  SensorAngleConfig:
+  - 50
+  - 70
+  - 90
+  - 110
+  - 130
+  - 10
+  - 30
+  - 50
+  - 70
+  - 90
+  - 10
+  - 30
+  - 50
+  - 70
+  - 90
+  - 30
+  - 150
+  brainData: {fileID: 4900000, guid: ebb1277029c60414aaff44853792ecb5, type: 3}
+  brain:
+    weights: []
+    biases: []
+    inputSize: 0
+    hiddenSize: 0
+    hiddenLayers: 0
+    outputSize: 0
+  selectedInputs: 01010101010101010101010101010101010000000000000000000000000000000000000000000000010101010100010100010100
