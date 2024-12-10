@@ -285,6 +285,12 @@ challenge2で実行
 右；途中で逆走
 
 
+## v27
+v26と同じ
+currentstepmax = 10000
+8-4-4-8
+
+
 # 今後やること
 ## NNBattleBrain.csの編集
 急ハンドルに罰則をつける
