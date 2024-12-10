@@ -306,7 +306,7 @@ public class CarAgent : Agent
         // Vector3 velocityDirection = CarRb.velocity.normalized;
 
         // // 次のWaypoint方向（ローカル座標系）
-        // Vector3 normalizedNextDirection = NextWaypointDirection.normalized;
+        // Vector3 normalizedNextDirection0 = NextWaypointDirections[0].normalized;
 
         // // 方向のコサイン類似度を計算
         // float directionAlignment = Vector3.Dot(velocityDirection, normalizedNextDirection);
@@ -356,7 +356,11 @@ public class CarAgent : Agent
         if (transform.position[2] - LastPosition[2] > 0) {
             AddReward(gasInput-braking);
         }
+        float straightRate = Vector3.Dot(NextWaypointDirections[1].normalized, NextWaypointDirections[2].normalized);
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*2); } // 10°以下なら直線とみなす
 
+        if (currentStep == 1000) {Debug.Log(straightRate);}
+        
         LastPosition = transform.position;
     }
 
