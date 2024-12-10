@@ -354,13 +354,15 @@ public class CarAgent : Agent
         // }
 
         if (transform.position[2] - LastPosition[2] > 0) {
-            AddReward(gasInput-braking);
+            AddReward((gasInput-braking)*2);
         }
-        float straightRate = Vector3.Dot(NextWaypointDirections[1].normalized, NextWaypointDirections[2].normalized);
-        if (straightRate > 0.98) { AddReward((gasInput - braking)*2); } // 10°以下なら直線とみなす
 
-        if (currentStep == 1000) {Debug.Log(straightRate);}
-        
+
+        float straightRate = Vector3.Dot(NextWaypointDirections[1].normalized, NextWaypointDirections[2].normalized);
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*3); } // 少し後が10°以下なら直線とみなす
+
+        if (currentStep == 1500) {Debug.Log(straightRate);}
+
         LastPosition = transform.position;
     }
 
