@@ -686,6 +686,7 @@ MonoBehaviour:
   index: 24
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0.0000003814682}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &141091308
@@ -965,6 +966,7 @@ MonoBehaviour:
   index: 32
   isLast: 0
   nextDirection: {x: 0.772721, y: 0, z: 0.63474584}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &153146902
@@ -1080,6 +1082,7 @@ MonoBehaviour:
   index: 29
   isLast: 0
   nextDirection: {x: -0.18678562, y: 0, z: 0.9824007}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &162309347
@@ -1195,6 +1198,7 @@ MonoBehaviour:
   index: 5
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &172054854
@@ -1638,6 +1642,7 @@ MonoBehaviour:
   index: 3
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &191320916
@@ -1753,6 +1758,7 @@ MonoBehaviour:
   index: 14
   isLast: 0
   nextDirection: {x: -0.87800294, y: 0, z: -0.4786551}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &336393820
@@ -8703,6 +8709,7 @@ MonoBehaviour:
   index: 8
   isLast: 0
   nextDirection: {x: 0.94721293, y: 0, z: -0.32060525}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &403625607
@@ -8830,6 +8837,7 @@ MonoBehaviour:
   index: 9
   isLast: 0
   nextDirection: {x: 0.70754135, y: 0, z: -0.706672}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &428298679
@@ -9680,6 +9688,7 @@ MonoBehaviour:
   index: 22
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &544214994
@@ -9795,6 +9804,7 @@ MonoBehaviour:
   index: 7
   isLast: 0
   nextDirection: {x: 0.99328953, y: 0.0000005128319, z: -0.11565424}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &626000141
@@ -10319,6 +10329,7 @@ MonoBehaviour:
   index: 30
   isLast: 0
   nextDirection: {x: 0.25702927, y: 0, z: 0.9664036}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &701169237
@@ -10598,6 +10609,7 @@ MonoBehaviour:
   index: 19
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &712641371
@@ -11041,6 +11053,7 @@ MonoBehaviour:
   index: 23
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &746149428
@@ -11168,6 +11181,7 @@ MonoBehaviour:
   index: 13
   isLast: 0
   nextDirection: {x: -0.6937447, y: 0, z: -0.720221}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &763276535
@@ -11447,6 +11461,7 @@ MonoBehaviour:
   index: 25
   isLast: 0
   nextDirection: {x: -0.998739, y: 0, z: 0.05020322}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &766315611
@@ -11562,6 +11577,7 @@ MonoBehaviour:
   index: 1
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &828420696
@@ -11677,6 +11693,7 @@ MonoBehaviour:
   index: 36
   isLast: 1
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &844788717
@@ -11990,6 +12007,7 @@ MonoBehaviour:
   index: 27
   isLast: 0
   nextDirection: {x: -0.75176686, y: 0, z: 0.659429}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &880846457
@@ -12269,6 +12287,7 @@ MonoBehaviour:
   index: 21
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &890908758
@@ -12367,7 +12386,7 @@ MonoBehaviour:
   - agent: {fileID: 132584626}
     brain: {fileID: 11400000, guid: ab2378e2bdcc64668a7abe934eb86cbb, type: 2}
   - agent: {fileID: 686467747}
-    brain: {fileID: 11400000, guid: 8620431cff8c74f3faf18397718068c6, type: 2}
+    brain: {fileID: 11400000, guid: cc509aba3e55c486ea92fff92189defb, type: 2}
   populationText: {fileID: 1170059951}
   name1Text: {fileID: 1722466227}
   name2Text: {fileID: 1985911685}
@@ -13309,6 +13328,7 @@ MonoBehaviour:
   index: 20
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1017514820
@@ -13752,6 +13772,7 @@ MonoBehaviour:
   index: 12
   isLast: 0
   nextDirection: {x: -0.31393382, y: 0, z: -0.9494449}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1074718692
@@ -14670,6 +14691,7 @@ MonoBehaviour:
   index: 4
   isLast: 0
   nextDirection: {x: 1, y: 0, z: -0.00000019073421}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1186119341
@@ -15769,6 +15791,7 @@ MonoBehaviour:
   index: 10
   isLast: 0
   nextDirection: {x: 0.35102794, y: 0, z: -0.93636495}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1236754562
@@ -16376,6 +16399,7 @@ MonoBehaviour:
   index: 35
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1339001367
@@ -16491,6 +16515,7 @@ MonoBehaviour:
   index: 33
   isLast: 0
   nextDirection: {x: 0.9670124, y: 0, z: 0.2547293}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1340871767
@@ -17064,6 +17089,7 @@ MonoBehaviour:
   index: 11
   isLast: 0
   nextDirection: {x: 0.057804774, y: 0, z: -0.9983279}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1456825877
@@ -17343,6 +17369,7 @@ MonoBehaviour:
   index: 15
   isLast: 0
   nextDirection: {x: -0.9783197, y: 0, z: -0.20710032}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1514141572
@@ -17622,6 +17649,7 @@ MonoBehaviour:
   index: 31
   isLast: 0
   nextDirection: {x: 0.5230819, y: 0, z: 0.8522824}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1603218073
@@ -18192,6 +18220,7 @@ MonoBehaviour:
   index: 6
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1725439697
@@ -18697,6 +18726,7 @@ MonoBehaviour:
   index: 2
   isLast: 0
   nextDirection: {x: 1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &1877892340
@@ -19644,6 +19674,7 @@ MonoBehaviour:
   index: 16
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2006097979
@@ -19759,6 +19790,7 @@ MonoBehaviour:
   index: 28
   isLast: 0
   nextDirection: {x: -0.5223408, y: 0, z: 0.8527369}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2014747885
@@ -19874,6 +19906,7 @@ MonoBehaviour:
   index: 26
   isLast: 0
   nextDirection: {x: -0.96472436, y: 0, z: 0.26326218}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2017304953
@@ -20153,6 +20186,7 @@ MonoBehaviour:
   index: 34
   isLast: 0
   nextDirection: {x: 0.999489, y: -0.00000051807774, z: 0.031963523}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2034410425
@@ -20268,6 +20302,7 @@ MonoBehaviour:
   index: 18
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2035699131
@@ -20547,6 +20582,7 @@ MonoBehaviour:
   index: 17
   isLast: 0
   nextDirection: {x: -1, y: 0, z: 0}
+  nextDirections: []
   layerWall: Wall
   layerRoad: Road
 --- !u!65 &2087097874

@@ -302,6 +302,23 @@ waypoint通過時の報酬を10に
 currentstepmax=3000
 
 
+## v30
+currentstepmaxを動的に変更
+→過学習で動かない
+
+## v31
+ここからchallenge3
+currentstepmaxを動的に変更(+250 , <50000)
+16-4-3-8
+
+
+## v32
+challenge4
+8-1-4-8
+→微妙
+
+
+
 # 今後やること
 ## NNBattleBrain.csの編集
 急ハンドルに罰則をつける
