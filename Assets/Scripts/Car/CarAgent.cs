@@ -17,7 +17,7 @@ public class CarAgent : Agent
     [SerializeField] private int localStep = 0;
     private int LocalStep { get { return localStep; } set { localStep = value; } }
 
-    [SerializeField] private int localStepMax = 150;
+    [SerializeField] private int localStepMax = 200;
     private int LocalStepMax => localStepMax;
 
     [SerializeField] private bool allowPlusReward = true;
@@ -270,7 +270,7 @@ public class CarAgent : Agent
             if(CurrentStep > CurrentStepMax) {
                 // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
                 if (CurrentStepMax == StepMax) {
-                    if (StepMax < 5000) { StepMax += 100; }
+                    if (StepMax < 5000) { StepMax += 250; }
                 }
                 Debug.Log($"ratio:{Reward*2/TotalDistance}");
                 DoneWithReward(TotalDistance/2 + Reward);
