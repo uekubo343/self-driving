@@ -66,7 +66,7 @@ public class WaypointsController : MonoBehaviour
         for (int i = 0; i < waypoints.Count; i++) {
             var nextPositions = new List<Vector3>();
 
-            for (int j = 1; j <= 3; j++) { // 次の次の次まで計算
+            for (int j = 1; j <= 5; j++) { // 次の次の次の次の次まで計算
                 int nextIndex = (i + j) % waypoints.Count;
                 nextPositions.Add(waypoints[nextIndex].transform.position);
             }

@@ -318,6 +318,19 @@ challenge4
 →微妙
 
 
+## v33
+challenge3
+単純にする
+currentstepmaxを動的に変更(+100 , <5000)
+localstepmaxを100に
+Reward+TotalDistance/2
+
+0~14,15,16,40,41,42,43,44,46,47
+角度は一緒
+8-1-3-8
+
+
+
 
 # 今後やること
 ## NNBattleBrain.csの編集
