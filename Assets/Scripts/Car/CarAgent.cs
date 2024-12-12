@@ -11,6 +11,9 @@ public class CarAgent : Agent
     [SerializeField] private int currentStepMax = 5000;
     private int CurrentStepMax { get { return currentStepMax; } set { currentStepMax = value; } }
 
+    [SerializeField] private int stepMax = 1000;
+    public int StepMax { get { return stepMax; } set { stepMax = value; } }
+
     [SerializeField] private int localStep = 0;
     private int LocalStep { get { return localStep; } set { localStep = value; } }
 
@@ -53,7 +56,7 @@ public class CarAgent : Agent
         LocalStep = 0;
         LastPosition = StartPosition;
         TotalDistance = 0;
-        CurrentStepMax = 3000;
+        CurrentStepMax = StepMax;
     }
 
     public override void AgentReset() {
@@ -72,6 +75,7 @@ public class CarAgent : Agent
         TotalDistance = 0;
         LastPosition = StartPosition;
 
+        CurrentStepMax = StepMax;
         WaypointIndex = 0;
     }
 
@@ -264,8 +268,12 @@ public class CarAgent : Agent
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
-                Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
-                DoneWithReward(Reward+TotalDistance);
+                // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
+                if (CurrentStepMax == StepMax) {
+                    if (StepMax < 10000) { StepMax += 500; }
+                }
+                Debug.Log($"Goal:{StepMax}");
+                DoneWithReward(Reward+TotalDistance*2);
                 return;
             }
 

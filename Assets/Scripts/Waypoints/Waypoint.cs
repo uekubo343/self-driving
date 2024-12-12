@@ -31,6 +31,7 @@ public class Waypoint : MonoBehaviour
     /// </summary>
     public List<Vector3> NextDirections {
         get { return nextDirections; }
+        private set { nextDirections = value; }
     }
 
     [Header("Layer Settings"), SerializeField] private string layerWall = "Wall";
