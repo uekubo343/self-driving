@@ -17,7 +17,7 @@ public class CarAgent : Agent
     [SerializeField] private int localStep = 0;
     private int LocalStep { get { return localStep; } set { localStep = value; } }
 
-    [SerializeField] private int localStepMax = 100;
+    [SerializeField] private int localStepMax = 150;
     private int LocalStepMax => localStepMax;
 
     [SerializeField] private bool allowPlusReward = true;

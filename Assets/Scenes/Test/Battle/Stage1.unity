@@ -622,6 +622,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCar_Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 314751056287345423, guid: baaf98013629ca142bd336cfd1576943,
+        type: 3}
+      propertyPath: backUpOnCollision
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baaf98013629ca142bd336cfd1576943, type: 3}
 --- !u!114 &132584626 stripped
@@ -10265,6 +10270,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCar_Red
       objectReference: {fileID: 0}
+    - target: {fileID: 314751056287345423, guid: 7359690a484e4704c81aa48033f64850,
+        type: 3}
+      propertyPath: backUpOnCollision
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7359690a484e4704c81aa48033f64850, type: 3}
 --- !u!114 &686467747 stripped
@@ -12386,7 +12396,7 @@ MonoBehaviour:
   - agent: {fileID: 132584626}
     brain: {fileID: 11400000, guid: ab2378e2bdcc64668a7abe934eb86cbb, type: 2}
   - agent: {fileID: 686467747}
-    brain: {fileID: 11400000, guid: cc509aba3e55c486ea92fff92189defb, type: 2}
+    brain: {fileID: 11400000, guid: 2c069a9c36a4a45ae81fe1534907024a, type: 2}
   populationText: {fileID: 1170059951}
   name1Text: {fileID: 1722466227}
   name2Text: {fileID: 1985911685}
