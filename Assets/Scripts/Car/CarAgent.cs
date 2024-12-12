@@ -273,7 +273,7 @@ public class CarAgent : Agent
                     if (StepMax < 5000) { StepMax += 100; }
                 }
                 Debug.Log($"ratio:{Reward*2/TotalDistance}");
-                DoneWithReward(Reward+TotalDistance/2);
+                DoneWithReward(TotalDistance/2 + Reward);
                 return;
             }
 

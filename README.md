@@ -365,6 +365,23 @@ Reward+TotalDistance/2
 8-2-3-8
 
 
+## v36
+stage3
+
+currentstepmaxを動的に変更(+100 , <5000)
+localstepmaxを150に
+Reward+TotalDistance/2
+坂道のアクセルの評価値を5倍に
+
+0~14,15,16,,40,41,42,43,44,46,47
+角度
+50-70-90-110-130
+10-30-50-70-90
+30-150
+
+100-85-4
+8-1-3-8
+
 
 # 今後やること
 ## NNBattleBrain.csの編集
