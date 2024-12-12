@@ -361,7 +361,7 @@ public class CarAgent : Agent
         // }
 
         if (transform.position[2] - LastPosition[2] > 0) {
-            AddReward((gasInput-braking)*0.1f);
+            AddReward((gasInput-braking)*0.5f);
         }
 
 
