@@ -9194,8 +9194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalPopulation: 100
-  tournamentSelection: 75
-  eliteSelection: 6
+  tournamentSelection: 85
+  eliteSelection: 4
   selectedInputs: 01010101010101010101010101010101010000000000000000000000000000000000000000000000010101010101010100010100
   sensorAngleConfig:
   - 50
@@ -29872,6 +29872,10 @@ PrefabInstance:
     - target: {fileID: 1334959830, guid: 2f298cd1f27de034497049b26ced25fb, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1334959831, guid: 2f298cd1f27de034497049b26ced25fb, type: 3}
+      propertyPath: m_Text
+      value: Sample
       objectReference: {fileID: 0}
     - target: {fileID: 738837422465160095, guid: 2f298cd1f27de034497049b26ced25fb,
         type: 3}

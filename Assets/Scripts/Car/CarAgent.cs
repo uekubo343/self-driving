@@ -29,6 +29,10 @@ public class CarAgent : Agent
     [SerializeField] private bool backUpOnCollision = false;
     private bool BackUpOnCollision => backUpOnCollision;
 
+    [SerializeField] private double Left_Distance = 0;
+    private double left_distance { get { return Left_Distance; } set { Left_Distance = value; } }
+    [SerializeField] private double Right_Distance = 0;
+    private double right_distance { get { return Right_Distance; } set { Right_Distance = value; } }
     private Sensor[] Sensors { get; set; }
     private CarController Controller { get; set; }
     private Rigidbody CarRb { get; set; }
@@ -240,6 +244,9 @@ public class CarAgent : Agent
             results.Add(localNextDirection4[i]);
         }
 
+        right_distance = results[9];
+        left_distance = results[14];
+
         return results;
     }
 
@@ -289,8 +296,8 @@ public class CarAgent : Agent
                 if (CurrentStepMax == StepMax) {
                     if (StepMax < 5000) { StepMax += 250; }
                 }
-                Debug.Log($"ratio:{Reward*3/TotalDistance}");
-                DoneWithReward(TotalDistance/3 + Reward);
+                Debug.Log($"ratio:{Reward/TotalDistance}");
+                DoneWithReward(TotalDistance + Reward);
                 return;
             }
 
@@ -299,6 +306,15 @@ public class CarAgent : Agent
                 DoneWithReward(-1.0f / TotalDistance);
                 return;
             }
+        }
+
+        double distance_ratio = left_distance/right_distance;
+        if (distance_ratio > 0.66 && distance_ratio < 1.5) {
+            AddReward(0.1f*v);
+        }
+
+        if (currentStep == 3) {
+            Debug.Log(distance_ratio);
         }
 
 
@@ -344,9 +360,9 @@ public class CarAgent : Agent
         //     AddReward(-0.02f); // 悪い方向
         // }
 
-        if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
-            AddReward(0.1f); // 探索報酬
-        }
+        // if (UnityEngine.Random.Range(0, 100) < 5) { // ランダムなイベント（5%）
+        //     AddReward(0.1f); // 探索報酬
+        // }
 
         var steering = Mathf.Clamp((float)vectorAction[0], -1.0f, 1.0f);
         float gasInput = 0.0f;
@@ -377,14 +393,14 @@ public class CarAgent : Agent
         //    Debug.Log(steering);
         // }
 
-        // 坂道でのアクセルに報酬
-        if (NextWaypointDirections[0][1] > 0) {
-            AddReward((gasInput-braking)*0.5f);
-        }
+        // // 坂道でのアクセルに報酬
+        // if (NextWaypointDirections[0][1] > 0) {
+        //     AddReward((gasInput-braking)*0.5f);
+        // }
 
         // 直線でのアクセルに報酬
-        float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
-        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.2f); } // 少し後が10°以下なら直線とみなす
+        // float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
+        // if (straightRate > 0.98) { AddReward((gasInput - braking)*0.2f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
     }
@@ -433,7 +449,7 @@ public class CarAgent : Agent
         WaypointIndex = waypoint.Index;
 
         // WayPoint通過時に報酬を与える
-        AddReward(10.0f);
+        // AddReward(10.0f);
 
         if(waypoint.IsLast) {
             WaypointIndex = 0;
