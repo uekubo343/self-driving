@@ -40,7 +40,7 @@ public class CarAgent : Agent
     private bool passLastPoint=false;
     // 次のWaypointの方向（グローバル座標）
     // private Vector3 NextWaypointDirection = Vector3.forward;
-    private List <Vector3> NextWaypointDirections = new List<Vector3> { Vector3.forward, Vector3.forward, Vector3.forward };
+    private List <Vector3> NextWaypointDirections = new List<Vector3> { Vector3.forward, Vector3.forward, Vector3.forward, Vector3.forward, Vector3.forward };
 
     private void Awake() {
         CarRb = GetComponent<Rigidbody>();
@@ -230,6 +230,16 @@ public class CarAgent : Agent
             results.Add(localNextDirection2[i]);
         }
 
+        Vector3 localNextDirection3 = CarRb.transform.InverseTransformDirection(NextWaypointDirections[3]);
+        for(int i = 0; i < 3; i++) {
+            results.Add(localNextDirection3[i]);
+        }
+
+        Vector3 localNextDirection4 = CarRb.transform.InverseTransformDirection(NextWaypointDirections[4]);
+        for(int i = 0; i < 3; i++) {
+            results.Add(localNextDirection4[i]);
+        }
+
         return results;
     }
 
@@ -266,48 +276,55 @@ public class CarAgent : Agent
         TotalDistance += (transform.position - LastPosition).magnitude;
         var v = CarRb.velocity.magnitude;
 
+        // if (currentStep == 2) {
+        //     Debug.Log(CarRb.transform.InverseTransformDirection(NextWaypointDirections[0]));
+        //     Debug.Log(CarRb.transform.InverseTransformDirection(NextWaypointDirections[1]));
+        //     Debug.Log(CarRb.transform.InverseTransformDirection(NextWaypointDirections[2]));
+        //     Debug.Log(CarRb.transform.InverseTransformDirection(NextWaypointDirections[3]));
+        // }
+
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
                 // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
                 if (CurrentStepMax == StepMax) {
                     if (StepMax < 5000) { StepMax += 250; }
                 }
-                Debug.Log($"ratio:{Reward*2/TotalDistance}");
-                DoneWithReward(TotalDistance/2 + Reward);
+                Debug.Log($"ratio:{Reward*3/TotalDistance}");
+                DoneWithReward(TotalDistance/3 + Reward);
                 return;
             }
 
             if(LocalStep > LocalStepMax) {
-                Debug.Log($"localstep, TotalDistance:{TotalDistance}");
+                // Debug.Log($"localstep, TotalDistance:{TotalDistance}");
                 DoneWithReward(-1.0f / TotalDistance);
                 return;
             }
         }
 
 
-        if (CurrentStep > 100) {
-            if (v < 5) {
-                AddReward(-0.03f);
-            }
-            else if (v < 10) {
-                AddReward(-0.01f);
-            }
-            else if (v < 15) {
-                AddReward(0.02f);
-            }
-            else if (v < 20) {
-                AddReward(0.04f);
-            }
-            else if (v < 25) {
-                AddReward(0.06f);
-            }
-            else if (v > 25) {
-                AddReward(0.08f);
-            }
-        }
-        else {
-            AddReward(0.01f * v);
-        }
+        // if (CurrentStep > 100) {
+        //     if (v < 5) {
+        //         AddReward(-0.03f);
+        //     }
+        //     else if (v < 10) {
+        //         AddReward(-0.01f);
+        //     }
+        //     else if (v < 15) {
+        //         AddReward(0.02f);
+        //     }
+        //     else if (v < 20) {
+        //         AddReward(0.04f);
+        //     }
+        //     else if (v < 25) {
+        //         AddReward(0.06f);
+        //     }
+        //     else if (v > 25) {
+        //         AddReward(0.08f);
+        //     }
+        // }
+        // else {
+        //     AddReward(0.01f * v);
+        // }
 
         // // 現在の進行方向（ローカル座標系）
         // Vector3 velocityDirection = CarRb.velocity.normalized;
@@ -360,13 +377,14 @@ public class CarAgent : Agent
         //    Debug.Log(steering);
         // }
 
-        if (transform.position[2] - LastPosition[2] > 0) {
+        // 坂道でのアクセルに報酬
+        if (NextWaypointDirections[0][1] > 0) {
             AddReward((gasInput-braking)*0.5f);
         }
 
-
-        float straightRate = Vector3.Dot(NextWaypointDirections[1].normalized, NextWaypointDirections[2].normalized);
-        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.1f); } // 少し後が10°以下なら直線とみなす
+        // 直線でのアクセルに報酬
+        float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.2f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
     }
