@@ -294,7 +294,7 @@ public class CarAgent : Agent
             if(CurrentStep > CurrentStepMax) {
                 // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
                 if (CurrentStepMax == StepMax) {
-                    if (StepMax < 5000) { StepMax += 250; }
+                    if (StepMax < 10000) { StepMax += 500; }
                 }
                 Debug.Log($"ratio:{Reward/TotalDistance}");
                 DoneWithReward(TotalDistance + Reward);
@@ -308,14 +308,11 @@ public class CarAgent : Agent
             }
         }
 
-        double distance_ratio = left_distance/right_distance;
-        if (distance_ratio > 2.3 && distance_ratio < 4) {
-            AddReward(0.2f*v);
-        }
+        // double distance_ratio = left_distance/right_distance;
+        // if (distance_ratio < 1.5 && distance_ratio > 0.6) {
+        //     AddReward(0.2f*v);
+        // }
 
-        if (currentStep == 3) {
-            Debug.Log(distance_ratio);
-        }
 
 
         // if (CurrentStep > 100) {
@@ -391,13 +388,15 @@ public class CarAgent : Agent
 
             if (currentStep%50 == 0) { Debug.Log("Full Power"); Debug.Log(gasInput);}
         }
+
+        // if (currentStep < 200) { steering = 0; }
         
         Controller.SteerInput = steering;
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
 
-        // if (currentStep == 1000) {
-        //    Debug.Log(steering);
+        // if (currentStep == 190) {
+        //    Debug.Log(Controller.SteerInput);
         // }
 
         // // 坂道でのアクセルに報酬
@@ -406,8 +405,8 @@ public class CarAgent : Agent
         // }
 
         // 直線でのアクセルに報酬
-        // float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
-        // if (straightRate > 0.98) { AddReward((gasInput - braking)*0.2f); } // 少し後が10°以下なら直線とみなす
+        float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.5f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
     }
