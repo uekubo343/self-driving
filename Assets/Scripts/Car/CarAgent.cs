@@ -309,8 +309,8 @@ public class CarAgent : Agent
         }
 
         double distance_ratio = left_distance/right_distance;
-        if (distance_ratio > 0.43 && distance_ratio < 2.33) {
-            AddReward(0.1f*v);
+        if (distance_ratio > 2.3 && distance_ratio < 4) {
+            AddReward(0.2f*v);
         }
 
         if (currentStep == 3) {
