@@ -309,7 +309,7 @@ public class CarAgent : Agent
         }
 
         double distance_ratio = left_distance/right_distance;
-        if (distance_ratio > 0.66 && distance_ratio < 1.5) {
+        if (distance_ratio > 0.43 && distance_ratio < 2.33) {
             AddReward(0.1f*v);
         }
 
@@ -385,6 +385,13 @@ public class CarAgent : Agent
         //     AddReward(0.01f);
         // }
 
+        if (NextWaypointDirections[1][1] > 0.1 && NextWaypointDirections[2][1] > 0.1) {
+            if (gasInput*2 <= 1) { gasInput *= 2.0f; };
+            braking = 0;
+
+            if (currentStep%50 == 0) { Debug.Log("Full Power"); Debug.Log(gasInput);}
+        }
+        
         Controller.SteerInput = steering;
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
