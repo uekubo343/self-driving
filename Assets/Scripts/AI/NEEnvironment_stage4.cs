@@ -9,7 +9,7 @@ using System.Linq;
 using UnityEditor.SceneManagement;
 #endif
 
-public class NEEnvironment_stage4v0 : Environment
+public class NEEnvironment_stage4 : Environment
 {
     [Header("Settings"), SerializeField] private int totalPopulation = 100;
     private int TotalPopulation { get { return totalPopulation; } }
@@ -20,8 +20,12 @@ public class NEEnvironment_stage4v0 : Environment
     [SerializeField] private int eliteSelection = 4;
     private int EliteSelection { get { return eliteSelection; } }
 
-    [SerializeField] private int inputSize = 7;
-    private int InputSize { get { return inputSize; } }
+    [SerializeField] public bool[] selectedInputs = new bool[46];
+    [SerializeField] public List<double> sensorAngleConfig = new List<double>();
+
+    private int InputSize { get; set; }
+
+    private List<int> SelectedInputsList { get; set; }
 
     [SerializeField] private int hiddenSize = 8;
     private int HiddenSize { get { return hiddenSize; } }
@@ -59,6 +63,23 @@ public class NEEnvironment_stage4v0 : Environment
     private List<Obstacle> Obstacles { get; } = new List<Obstacle>();
 
     void Start() {
+        // Calculate and set input size.
+        int sensorCount = 0;
+        foreach (bool value in selectedInputs)
+        {
+            if (value) sensorCount++;
+        }
+        InputSize = sensorCount;
+
+        // Calculate and set sensors list.
+        List<int> selectedInputsList = new List<int>();
+        for (int i = 0; i < selectedInputs.Length; i++)
+        {
+            if (selectedInputs[i]) selectedInputsList.Add(i);
+        }
+        SelectedInputsList = selectedInputsList;
+
+        // Initialize brain.
         for(int i = 0; i < TotalPopulation; i++) {
             Brains.Add(new NNBrain(InputSize, HiddenSize, HiddenLayers, OutputSize));
         }
@@ -69,6 +90,12 @@ public class NEEnvironment_stage4v0 : Environment
             GObjects.Add(obj);
             Agents.Add(obj.GetComponent<Agent>());
         }
+
+        foreach(Agent agent in Agents)
+        {
+            agent.SetAgentConfig(sensorAngleConfig);
+        }
+
         BestRecord = -9999;
         SetStartAgents();
         Obstacles.AddRange(FindObjectsOfType<Obstacle>());
@@ -113,8 +140,9 @@ public class NEEnvironment_stage4v0 : Environment
     }
 
     private void AgentUpdate(Agent a, NNBrain b) {
-        var observation = a.GetAllObservations();
-        var action = b.GetAction(observation);
+        var observation = a.OriginalObservations();
+        var rearranged = RearrangeObservation(observation, SelectedInputsList);
+        var action = b.GetAction(rearranged);
         a.AgentAction(action, false);
     }
 
@@ -172,6 +200,24 @@ public class NEEnvironment_stage4v0 : Environment
         }
         Brains = children;
         Generation++;
+    }
+
+    protected List<double> RearrangeObservation(List<double> observation, List<int> indexesToUse)
+    {
+        if(observation == null || indexesToUse == null) return null;
+
+        List<double> rearranged = new List<double>();
+        foreach(int index in indexesToUse)
+        {
+            if(index >= observation.Count)
+            {
+                rearranged.Add(0);
+                continue;
+            }
+            rearranged.Add(observation[index]);
+        }
+
+        return rearranged;
     }
 
     private void UpdateText() {
