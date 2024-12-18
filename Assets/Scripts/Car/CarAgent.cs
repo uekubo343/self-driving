@@ -294,7 +294,7 @@ public class CarAgent : Agent
             if(CurrentStep > CurrentStepMax) {
                 // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
                 if (CurrentStepMax == StepMax) {
-                    if (StepMax < 10000) { StepMax += 500; }
+                    if (StepMax < 60000) { StepMax += 250; }
                 }
                 Debug.Log($"ratio:{Reward/TotalDistance}");
                 DoneWithReward(TotalDistance + Reward);
@@ -307,7 +307,6 @@ public class CarAgent : Agent
                 return;
             }
         }
-
         // double distance_ratio = left_distance/right_distance;
         // if (distance_ratio < 1.5 && distance_ratio > 0.6) {
         //     AddReward(0.2f*v);
@@ -383,14 +382,23 @@ public class CarAgent : Agent
         // }
 
         if (NextWaypointDirections[1][1] > 0.1 && NextWaypointDirections[2][1] > 0.1) {
-            if (gasInput*2 <= 1) { gasInput *= 2.0f; };
+            if (gasInput <= 0.6) { gasInput += 0.3f; };
             braking = 0;
 
             if (currentStep%50 == 0) { Debug.Log("Full Power"); Debug.Log(gasInput);}
         }
 
         // if (currentStep < 200) { steering = 0; }
-        
+
+        // if (!IsLearning) {
+        //     if (LocalStep > LocalStepMax * 5) {
+        //         int now = currentStep;
+        //         if(currentStep < now + 100) {
+        //             gasInput = -0.3f;
+        //         }
+        //     }
+        // }
+    
         Controller.SteerInput = steering;
         Controller.GasInput = gasInput;
         Controller.BrakeInput = braking;
@@ -406,7 +414,7 @@ public class CarAgent : Agent
 
         // 直線でのアクセルに報酬
         float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
-        if (straightRate > 0.98) { AddReward((gasInput - braking)*0.5f); } // 少し後が10°以下なら直線とみなす
+        if (straightRate > 0.98) { AddReward((gasInput - braking)*1.0f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
     }
@@ -427,7 +435,7 @@ public class CarAgent : Agent
     /// </summary>
     /// <param name="collision"></param>
     public void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "wall") {
+        if(collision.gameObject.tag == "wall" || collision.gameObject.tag == "rock") {
             if (BackUpOnCollision) {
                 StartBackingUp();
             } else {
