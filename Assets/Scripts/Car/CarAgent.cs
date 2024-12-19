@@ -8,7 +8,7 @@ public class CarAgent : Agent
     [SerializeField] private int currentStep = 0;
     private int CurrentStep { get { return currentStep; } set { currentStep = value; } }
 
-    [SerializeField] private int currentStepMax = 5000;
+    [SerializeField] private int currentStepMax = 6000;
     private int CurrentStepMax { get { return currentStepMax; } set { currentStepMax = value; } }
 
     [SerializeField] private int stepMax = 500;
@@ -60,7 +60,7 @@ public class CarAgent : Agent
         LocalStep = 0;
         LastPosition = StartPosition;
         TotalDistance = 0;
-        CurrentStepMax = StepMax;
+        CurrentStepMax = 6000;
     }
 
     public override void AgentReset() {
@@ -79,7 +79,7 @@ public class CarAgent : Agent
         TotalDistance = 0;
         LastPosition = StartPosition;
 
-        CurrentStepMax = StepMax;
+        CurrentStepMax = 6000;
         WaypointIndex = 0;
     }
 
@@ -292,12 +292,12 @@ public class CarAgent : Agent
 
         if(IsLearning) {
             if(CurrentStep > CurrentStepMax) {
-                // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
-                if (CurrentStepMax == StepMax) {
-                    if (StepMax < 60000) { StepMax += 250; }
-                }
-                Debug.Log($"ratio:{Reward/TotalDistance}");
-                DoneWithReward(TotalDistance + Reward);
+                // // Debug.Log($"Reward:{Reward}, TotalDistance:{TotalDistance}");
+                // if (CurrentStepMax == StepMax) {
+                //     if (StepMax < 60000) { StepMax += 250; }
+                // } 
+                Debug.Log($"ratio:{Reward*2/TotalDistance}");
+                DoneWithReward(TotalDistance + Reward*2);
                 return;
             }
 
@@ -381,11 +381,14 @@ public class CarAgent : Agent
         //     AddReward(0.01f);
         // }
 
-        if (NextWaypointDirections[1][1] > 0.1 && NextWaypointDirections[2][1] > 0.1) {
-            if (gasInput <= 0.6) { gasInput += 0.3f; };
+        // if (currentStep < 100) {gasInput = 1.0f;}
+
+        // 坂道では手動で加速する
+        if (NextWaypointDirections[1][1] > 0.1 || NextWaypointDirections[2][1] > 0.1) {
+            if (gasInput <= 0.4) { gasInput += 0.6f; };
             braking = 0;
 
-            if (currentStep%50 == 0) { Debug.Log("Full Power"); Debug.Log(gasInput);}
+            // if (currentStep%50 == 0) { Debug.Log("Full Power"); Debug.Log(gasInput);}
         }
 
         // if (currentStep < 200) { steering = 0; }
@@ -413,7 +416,11 @@ public class CarAgent : Agent
         // }
 
         // 直線でのアクセルに報酬
-        float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
+        float norm1 = MathF.Sqrt(NextWaypointDirections[2][0]*NextWaypointDirections[2][0] + NextWaypointDirections[2][2]*NextWaypointDirections[2][2]);
+        float norm2 = MathF.Sqrt(NextWaypointDirections[3][0]*NextWaypointDirections[3][0] + NextWaypointDirections[3][2]*NextWaypointDirections[3][2]);
+        float dot = NextWaypointDirections[3][0]*NextWaypointDirections[2][0] + NextWaypointDirections[3][2]*NextWaypointDirections[2][2];
+        float straightRate = dot/norm1/norm2;
+        // float straightRate = Vector3.Dot(NextWaypointDirections[2].normalized, NextWaypointDirections[3].normalized);
         if (straightRate > 0.98) { AddReward((gasInput - braking)*1.0f); } // 少し後が10°以下なら直線とみなす
 
         LastPosition = transform.position;
